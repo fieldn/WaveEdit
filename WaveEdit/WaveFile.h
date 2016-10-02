@@ -66,7 +66,7 @@ public:
 
 	// Get ith sample
 	int get_sample(int i);
-
+	
 	// Update the wave header in memory with the latest number of samples etc.
 	// We need to call updateHeader before saving or playing the file after
 	// the wave file has been updated.
@@ -82,12 +82,14 @@ public:
 	// If durationms==0 then use the whole wave file.
 	WaveFile * multiply_freq(double k, int durationms);
 
-	short* get_fragment(double startms, double endms);
+	short* get_fragment(double sampleStart, int sampleSize);
 
-	WaveFile * remove_fragment(double startms, double endms);
+	WaveFile * remove_fragment(double sampleStart, int sampleSize);
 
 	// Append a wave file src to the end of this wave file. 
 	void append_wave(WaveFile * src);
+
+	WaveFile * append_fragment(short* clipboard, int clipboardSize, int pos);
 
 	// Create a new wavefile with echo from the original one.
 	// echoAmount is a constant 0 to 1 with the amount of echo

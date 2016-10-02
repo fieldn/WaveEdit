@@ -17,6 +17,7 @@
 #include "mmsystem.h"
 #include "assert.h"
 #include "math.h"
+#include <vector>
 
 static void assignLittleEndian4(unsigned char * dest, unsigned int value) {
 	dest[0] = value & 0xFF;
@@ -157,8 +158,7 @@ int WaveFile::get_sample(int i) {
 	if (isLittleEndian()) {
 		*((unsigned char*)&val + 1) = (hdr->data[2 * i + 1]);
 		*((unsigned char*)&val) = (hdr->data[2 * i]);
-	}
-	else {
+	} else {
 		*((unsigned char*)&val) = (hdr->data[2 * i + 1]);
 		*((unsigned char*)&val + 1) = (hdr->data[2 * i]);
 	}
@@ -235,18 +235,45 @@ WaveFile * WaveFile::multiply_freq(double k, int durationms) {
 	return w2;
 }
 
-short* WaveFile::get_fragment(double startms, double endms) {
-	return NULL;
+short* WaveFile::get_fragment(double sampleStart, int sampleSize) {
+	short* arr = (short*)malloc(sizeof(short) * sampleSize);
+	for (int i = 0, j = sampleStart; i < sampleSize; i++, j++) {
+		arr[i] = (this->get_sample((int)j));
+	}
+	return arr;
 }
 
-WaveFile * WaveFile::remove_fragment(double startms, double endms) {
-	return NULL;
+WaveFile * WaveFile::remove_fragment(double sampleStart, int sampleSize) {
+	int sizeEndStart = sampleStart + sampleSize;
+	int sizeEnd = this->lastSample - sizeEndStart;
+	WaveFile *w = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
+
+	for (int i = 0; i < sampleStart; i++)
+		w->add_sample(this->get_sample(i));
+	for (int i = sizeEndStart; i <= this->lastSample; i++)
+		w->add_sample(this->get_sample(i));
+
+	return w;
 }
 
 // Append a wave file src to the end of this wave file. 
 void WaveFile::append_wave(WaveFile * src) {
 	for (int i = 0; i < src->lastSample; i++)
 		add_sample(src->get_sample(i));
+}
+
+WaveFile * WaveFile::append_fragment(short* clipboard, int clipboardSize, int pos) {
+	WaveFile *w = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
+	for (int i = 0; i < pos; i++) {
+		w->add_sample(this->get_sample(i));
+	}
+	for (int i = 0; i < clipboardSize; i++) {
+		w->add_sample(clipboard[i]);
+	}
+	for (int i = pos; i < this->lastSample; i++) {
+		w->add_sample(this->get_sample(i));
+	}
+	return w;
 }
 
 // Create a new wavefile with echo from the original one.

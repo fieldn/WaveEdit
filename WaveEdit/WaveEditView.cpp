@@ -37,8 +37,9 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_EDIT_CUT, &CWaveEditView::OnEditCut)
 	ON_COMMAND(ID_EDIT_COPY, &CWaveEditView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CWaveEditView::OnEditPaste)
-	ON_COMMAND(ID_EDIT_DESELECTALL, &CWaveEditView::OnEditDeselectall)
+	ON_COMMAND(ID_SELECT_DESELECTALL, &CWaveEditView::OnEditDeselectall)
 	ON_COMMAND(ID_EDIT_LEFT_ARROW, &CWaveEditView::OnEditLeftArrow)
+	ON_COMMAND(ID_EDIT_LEFT_ARROW, &CWaveEditView::OnEditRightArrow)
 	ON_COMMAND(ID_SELECT_SELECTALL, &CWaveEditView::OnSelectSelectall)
 END_MESSAGE_MAP()
 
@@ -53,6 +54,8 @@ CWaveEditView::CWaveEditView()
 	pointer = 0;
 	drawOffset = 0;
 	zoom = 1;
+	clipboard = NULL;
+	clipboardSize = 0;
 }
 
 CWaveEditView::~CWaveEditView()
@@ -280,14 +283,20 @@ void CWaveEditView::OnEditCut()
 	// Scale the start and end of the selection.
 	double endms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width();
 
+	int start = sampleStart(startms, endms);
+
 	// Copy first the fragment
-	clipboard = wave.get_fragment(startms, endms);
+	if (clipboard != NULL) {
+		delete clipboard;
+	}
+	clipboard = wave.get_fragment(start, clipboardSize);
 	// Copy the clipboard
-	WaveFile w2 = *wave.remove_fragment(startms, endms);
+	WaveFile w2 = *wave.remove_fragment(start, clipboardSize);
 	// Remove old wave
 	// delete wave;
 	// Substitute old wave with new one
 	pDoc->wave = w2;
+	pDoc->wave.updateHeader();
 	// Update window
 	this->RedrawWindow();
 }
@@ -310,10 +319,22 @@ void CWaveEditView::OnEditCopy()
 	// Scale the start and end of the selection.
 	double endms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width();
 
+	int start = sampleStart(startms, endms);
+
 	// Copy first the fragment
-	clipboard = wave.get_fragment(startms, endms);
+	if (clipboard != NULL) {
+		delete clipboard;
+	}
+	clipboard = wave.get_fragment(start, clipboardSize);
 }
 
+int CWaveEditView::sampleStart(double startms, double endms) {
+	double sampleStart = startms * 44;
+	double sampleEnd = endms * 44;
+	int sampleSize = sampleEnd - sampleStart;
+	clipboardSize = sampleSize;
+	return sampleStart;
+}
 
 void CWaveEditView::OnEditPaste()
 {
@@ -329,9 +350,10 @@ void CWaveEditView::OnEditPaste()
 	CRect rect;
 	GetClientRect(rect);
 
-	for (int i = 0; i < clipboardSize; i++) {
-		wave.add_sample(clipboard[i]);
-	}
+	WaveFile * w = wave.append_fragment(clipboard, clipboardSize, wave.lastSample);
+	pDoc->wave = *w;
+	pDoc->wave.updateHeader();
+	RedrawWindow();
 }
 
 void CWaveEditView::OnEditDeselectall()
@@ -344,17 +366,28 @@ void CWaveEditView::OnEditDeselectall()
 void CWaveEditView::OnEditLeftArrow()
 {
 	if (selectionEnd != selectionStart) {
-		pointer = selectionStart - 1;
-		selectionEnd == selectionStart;
+		pointer = selectionStart < selectionEnd ? selectionStart - 1 : selectionEnd - 1;
+		selectionEnd = selectionStart;
 	} else if (pointer != 0) {
 		pointer--;
 	} else {
 		return;
 	}
 		RedrawWindow();
-	// TODO: Add your command handler code here
 }
 
+void CWaveEditView::OnEditRightArrow()
+{
+	if (selectionEnd != selectionStart) {
+		pointer = selectionEnd < selectionStart ? selectionStart + 1 : selectionEnd + 1;
+		selectionEnd = selectionStart;
+	} else if (pointer != 0) {
+		pointer++;
+	} else {
+		return;
+	}
+		RedrawWindow();
+}
 
 void CWaveEditView::OnSelectSelectall()
 {
@@ -365,5 +398,4 @@ void CWaveEditView::OnSelectSelectall()
 	selectionStart = 0;
 	selectionEnd = rect.Width();
 	RedrawWindow();
-	// TODO: Add your command handler code here
 }

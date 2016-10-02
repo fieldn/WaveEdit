@@ -32,7 +32,6 @@ END_MESSAGE_MAP()
 
 
 // CWaveEditDoc construction/destruction
-
 CWaveEditDoc::CWaveEditDoc()
 {
 	// TODO: add one-time construction code here
@@ -54,11 +53,7 @@ BOOL CWaveEditDoc::OnNewDocument()
 	return TRUE;
 }
 
-
-
-
 // CWaveEditDoc serialization
-
 void CWaveEditDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring()) {
@@ -146,12 +141,10 @@ void CWaveEditDoc::OnTransportPlay()
 	wave.play();
 }
 
-
 void CWaveEditDoc::OnTransportStop()
 {
 	PlaySoundW(NULL, NULL, 0);
 }
-
 
 void CWaveEditDoc::OnEffectEcho()
 {
@@ -159,13 +152,11 @@ void CWaveEditDoc::OnEffectEcho()
 	wave = *echoFile;
 }
 
-
 void CWaveEditDoc::OnEffectSpeedup()
 {
 	WaveFile * fastFile = wave.multiply_freq(2, 0);
 	wave = *fastFile;
 }
-
 
 void CWaveEditDoc::OnEffectSlowdown()
 {

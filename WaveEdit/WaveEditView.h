@@ -26,6 +26,7 @@ public:
 
 // Operations
 public:
+	int sampleStart(double startms, double endms);
 
 // Overrides
 public:
@@ -67,6 +68,7 @@ public:
 	afx_msg void OnEditDeselectall();
 	afx_msg void OnEditDeselectall32792();
 	afx_msg void OnEditLeftArrow();
+	afx_msg void OnEditRightArrow();
 	afx_msg void OnSelectSelectall();
 };
 
