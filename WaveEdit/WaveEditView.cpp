@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_VIEW_ZOOMIN, &CWaveEditView::OnViewZoomin)
 	ON_COMMAND(ID_VIEW_ZOOMNORMAL, &CWaveEditView::OnViewZoomnormal)
 	ON_COMMAND(ID_VIEW_ZOOMOUT, &CWaveEditView::OnViewZoomout)
+	ON_COMMAND(ID_VIEW_ZOOMSELECTION, &CWaveEditView::OnViewZoomselection)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -43,6 +44,7 @@ CWaveEditView::CWaveEditView()
 	mousePressed = false;
 	selectionStart = 0;
 	selectionEnd = 0;
+	drawOffset = 0;
 	zoom = 1;
 }
 
@@ -70,7 +72,6 @@ void CWaveEditView::OnInitialUpdate() {
 }
 
 // CWaveEditView drawing
-
 void CWaveEditView::OnDraw(CDC* pDC)
 {
 	CWaveEditDoc* pDoc = GetDocument();
@@ -117,6 +118,7 @@ void CWaveEditView::OnDraw(CDC* pDC)
 		int y = (int)((val + 32768) * (rect.Height() - 1) / (32767 + 32768));
 		pDC->LineTo(x, rect.Height() - y);
 	}
+
 }
 
 
@@ -224,4 +226,17 @@ void CWaveEditView::OnViewZoomout()
 {
 	zoom /= 2;
 	RedrawWindow();
+}
+
+void CWaveEditView::OnViewZoomselection()
+{
+	if (selectionStart != selectionEnd) {
+		float selectionSize = selectionEnd - selectionStart;
+		CRect rect;
+		GetClientRect(rect);
+		zoom = ((float)rect.Width() / selectionSize);
+		drawOffset = selectionStart;
+		RedrawWindow();
+	}
+	SetScrollPos(SB_HORZ, drawOffset, TRUE);
 }

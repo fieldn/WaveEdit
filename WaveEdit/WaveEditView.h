@@ -13,6 +13,7 @@ class CWaveEditView : public CScrollView
 	short* clipboard;
 	int clipboardSize;
 	float zoom;
+	int drawOffset;
 
 protected: // create from serialization only
 	CWaveEditView();
@@ -58,6 +59,7 @@ public:
 	afx_msg void OnViewZoomin();
 	afx_msg void OnViewZoomnormal();
 	afx_msg void OnViewZoomout();
+	afx_msg void OnViewZoomselection();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp

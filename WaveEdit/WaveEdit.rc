@@ -182,83 +182,83 @@ BEGIN
     END
 END
 
-IDR_WaveEditTYPE MENU
+IDR_WaveEditTYPE MENUEX
 BEGIN
-    POPUP "&File"
+    POPUP "&File",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
-        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
-        MENUITEM "&Close",                      ID_FILE_CLOSE
-        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
-        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
-        MENUITEM SEPARATOR
-        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
-        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
-        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
-        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
-        MENUITEM SEPARATOR
-        MENUITEM "E&xit",                       ID_APP_EXIT
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Close",                      ID_FILE_CLOSE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE,MFT_STRING,MFS_ENABLED
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT,MFT_STRING,MFS_ENABLED
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW,MFT_STRING,MFS_ENABLED
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1,MFT_STRING,MFS_GRAYED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT,MFT_STRING,MFS_ENABLED
     END
-    POPUP "&Edit"
+    POPUP "&Edit",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
-        MENUITEM "Redo\t Ctrl+Y",               ID_EDIT_REDO32783
-        MENUITEM SEPARATOR
-        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
-        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
-        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Redo\t Ctrl+Y",               ID_EDIT_REDO32783,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE,MFT_STRING,MFS_ENABLED
     END
-    POPUP "&View"
+    POPUP "&View",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "Zoom In\t Ctrl+1",            ID_VIEW_ZOOMIN
-        MENUITEM "Zoom Normal\t Ctrl+2",        ID_VIEW_ZOOMNORMAL
-        MENUITEM "Zoom Out\tCtrl+3",            ID_VIEW_ZOOMOUT
-        MENUITEM "Zoom Selection\tCtrl+4",      ID_VIEW_ZOOMSELECTION
-        MENUITEM SEPARATOR
-        POPUP "&Toolbars and Docking Windows"
+        MENUITEM "Zoom In\t Ctrl+1",            ID_VIEW_ZOOMIN,MFT_STRING,MFS_ENABLED
+        MENUITEM "Zoom Normal\t Ctrl+2",        ID_VIEW_ZOOMNORMAL,MFT_STRING,MFS_ENABLED
+        MENUITEM "Zoom Out\tCtrl+3",            ID_VIEW_ZOOMOUT,MFT_STRING,MFS_ENABLED
+        MENUITEM "Zoom Selection\tCtrl+4",      ID_VIEW_ZOOMSELECTION,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        POPUP "&Toolbars and Docking Windows",  65535,MFT_STRING,MFS_ENABLED
         BEGIN
-            MENUITEM "<placeholder>",               ID_VIEW_TOOLBAR
+            MENUITEM "<placeholder>",               ID_VIEW_TOOLBAR,MFT_STRING,MFS_ENABLED
         END
-        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
-        POPUP "&Application Look"
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR,MFT_STRING,MFS_ENABLED
+        POPUP "&Application Look",              65535,MFT_STRING,MFS_ENABLED
         BEGIN
-            MENUITEM "Windows &2000",               ID_VIEW_APPLOOK_WIN_2000
-            MENUITEM "Office &XP",                  ID_VIEW_APPLOOK_OFF_XP
-            MENUITEM "&Windows XP",                 ID_VIEW_APPLOOK_WIN_XP
-            MENUITEM "Office 200&3",                ID_VIEW_APPLOOK_OFF_2003
-            MENUITEM "Visual Studio 200&5",         ID_VIEW_APPLOOK_VS_2005
-            MENUITEM "Visual Studio 200&8",         ID_VIEW_APPLOOK_VS_2008
-            POPUP "Office 200&7"
+            MENUITEM "Windows &2000",               ID_VIEW_APPLOOK_WIN_2000,MFT_STRING,MFS_ENABLED
+            MENUITEM "Office &XP",                  ID_VIEW_APPLOOK_OFF_XP,MFT_STRING,MFS_ENABLED
+            MENUITEM "&Windows XP",                 ID_VIEW_APPLOOK_WIN_XP,MFT_STRING,MFS_ENABLED
+            MENUITEM "Office 200&3",                ID_VIEW_APPLOOK_OFF_2003,MFT_STRING,MFS_ENABLED
+            MENUITEM "Visual Studio 200&5",         ID_VIEW_APPLOOK_VS_2005,MFT_STRING,MFS_ENABLED
+            MENUITEM "Visual Studio 200&8",         ID_VIEW_APPLOOK_VS_2008,MFT_STRING,MFS_ENABLED
+            POPUP "Office 200&7",                   65535,MFT_STRING,MFS_ENABLED
             BEGIN
-                MENUITEM "&Blue Style",                 ID_VIEW_APPLOOK_OFF_2007_BLUE
-                MENUITEM "B&lack Style",                ID_VIEW_APPLOOK_OFF_2007_BLACK
-                MENUITEM "&Silver Style",               ID_VIEW_APPLOOK_OFF_2007_SILVER
-                MENUITEM "&Aqua Style",                 ID_VIEW_APPLOOK_OFF_2007_AQUA
+                MENUITEM "&Blue Style",                 ID_VIEW_APPLOOK_OFF_2007_BLUE,MFT_STRING,MFS_ENABLED
+                MENUITEM "B&lack Style",                ID_VIEW_APPLOOK_OFF_2007_BLACK,MFT_STRING,MFS_ENABLED
+                MENUITEM "&Silver Style",               ID_VIEW_APPLOOK_OFF_2007_SILVER,MFT_STRING,MFS_ENABLED
+                MENUITEM "&Aqua Style",                 ID_VIEW_APPLOOK_OFF_2007_AQUA,MFT_STRING,MFS_ENABLED
             END
         END
     END
-    POPUP "Effect"
+    POPUP "Effect",                         65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "Echo",                        ID_EFFECT_ECHO
-        MENUITEM "Speed Up",                    ID_EFFECT_SPEEDUP
-        MENUITEM "Slow Down",                   ID_EFFECT_SLOWDOWN
+        MENUITEM "Echo",                        ID_EFFECT_ECHO,MFT_STRING,MFS_ENABLED
+        MENUITEM "Speed Up",                    ID_EFFECT_SPEEDUP,MFT_STRING,MFS_ENABLED
+        MENUITEM "Slow Down",                   ID_EFFECT_SLOWDOWN,MFT_STRING,MFS_ENABLED
     END
-    POPUP "&Window"
+    POPUP "&Window",                        65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "&New Window",                 ID_WINDOW_NEW
-        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
-        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
-        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+        MENUITEM "&New Window",                 ID_WINDOW_NEW,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE,MFT_STRING,MFS_ENABLED
     END
-    POPUP "&Help"
+    POPUP "&Help",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "&About WaveEdit...",          ID_APP_ABOUT
+        MENUITEM "&About WaveEdit...",          ID_APP_ABOUT,MFT_STRING,MFS_ENABLED
     END
-    POPUP "Transport"
+    POPUP "Transport",                      65535,MFT_STRING,MFS_ENABLED
     BEGIN
-        MENUITEM "Play\t Space",                ID_TRANSPORT_PLAY
-        MENUITEM "Stop\t S",                    ID_TRANSPORT_STOP
+        MENUITEM "Play\t Space",                ID_TRANSPORT_PLAY,MFT_STRING | MFT_RIGHTJUSTIFY,MFS_ENABLED
+        MENUITEM "Stop\t S",                    ID_TRANSPORT_STOP,MFT_STRING,MFS_ENABLED
     END
 END
 
@@ -294,24 +294,30 @@ END
 
 IDR_MAINFRAME ACCELERATORS
 BEGIN
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
-    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
-    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
-    VK_NUMPAD1,     ID_VIEW_ZOOMIN,         VIRTKEY, CONTROL
-    VK_NUMPAD2,     ID_VIEW_ZOOMNORMAL,     VIRTKEY, CONTROL
-    VK_NUMPAD3,     ID_VIEW_ZOOMOUT,        VIRTKEY, CONTROL
-    VK_NUMPAD4,     ID_VIEW_ZOOMSELECTION,  VIRTKEY, CONTROL
-    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
-    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
-    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
-    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
-    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
-    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+IDR_WaveEditTYPE ACCELERATORS
+BEGIN
+    VK_SPACE,       ID_TRANSPORT_PLAY,      VIRTKEY, NOINVERT
+    "P",            ID_TRANSPORT_STOP,      VIRTKEY, NOINVERT
+    "1",            ID_VIEW_ZOOMIN,         VIRTKEY, CONTROL, NOINVERT
+    "2",            ID_VIEW_ZOOMNORMAL,     VIRTKEY, CONTROL, NOINVERT
+    "3",            ID_VIEW_ZOOMOUT,        VIRTKEY, CONTROL, NOINVERT
+    "4",            ID_VIEW_ZOOMSELECTION,  VIRTKEY, CONTROL, NOINVERT
 END
 
 

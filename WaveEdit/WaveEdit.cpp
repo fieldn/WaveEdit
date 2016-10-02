@@ -17,9 +17,7 @@
 #define new DEBUG_NEW
 #endif
 
-
 // CWaveEditApp
-
 BEGIN_MESSAGE_MAP(CWaveEditApp, CWinAppEx)
 	ON_COMMAND(ID_APP_ABOUT, &CWaveEditApp::OnAppAbout)
 	// Standard file based document commands
@@ -29,9 +27,7 @@ BEGIN_MESSAGE_MAP(CWaveEditApp, CWinAppEx)
 	ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
 END_MESSAGE_MAP()
 
-
 // CWaveEditApp construction
-
 CWaveEditApp::CWaveEditApp()
 {
 	m_bHiColorIcons = TRUE;
@@ -54,12 +50,9 @@ CWaveEditApp::CWaveEditApp()
 }
 
 // The one and only CWaveEditApp object
-
 CWaveEditApp theApp;
 
-
 // CWaveEditApp initialization
-
 BOOL CWaveEditApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application
@@ -74,10 +67,8 @@ BOOL CWaveEditApp::InitInstance()
 
 	CWinAppEx::InitInstance();
 
-
 	// Initialize OLE libraries
-	if (!AfxOleInit())
-	{
+	if (!AfxOleInit()) {
 		AfxMessageBox(IDP_OLE_INIT_FAILED);
 		return FALSE;
 	}
@@ -98,7 +89,6 @@ BOOL CWaveEditApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 	LoadStdProfileSettings(4);  // Load standard INI file options (including MRU)
-
 
 	InitContextMenuManager();
 
@@ -130,12 +120,9 @@ BOOL CWaveEditApp::InitInstance()
 	}
 	m_pMainWnd = pMainFrame;
 
-
 	// Parse command line for standard shell commands, DDE, file open
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
-
-
 
 	// Dispatch commands specified on the command line.  Will return FALSE if
 	// app was launched with /RegServer, /Register, /Unregserver or /Unregister.
@@ -157,7 +144,6 @@ int CWaveEditApp::ExitInstance()
 }
 
 // CWaveEditApp message handlers
-
 
 // CAboutDlg dialog used for App About
 
@@ -218,6 +204,3 @@ void CWaveEditApp::SaveCustomState()
 }
 
 // CWaveEditApp message handlers
-
-
-

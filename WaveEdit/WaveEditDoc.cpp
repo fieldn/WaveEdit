@@ -150,7 +150,6 @@ void CWaveEditDoc::OnTransportPlay()
 void CWaveEditDoc::OnTransportStop()
 {
 	PlaySoundW(NULL, NULL, 0);
-	// TODO: Add your command handler code here
 }
 
 
@@ -170,7 +169,6 @@ void CWaveEditDoc::OnEffectSpeedup()
 
 void CWaveEditDoc::OnEffectSlowdown()
 {
-	// TODO: Add your command handler code here
 	WaveFile * fastFile = wave.multiply_freq(0.5, 0);
 	wave = *fastFile;
 }
