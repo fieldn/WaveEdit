@@ -10,6 +10,7 @@ class CWaveEditView : public CScrollView
 	bool mousePressed;
 	int selectionStart; // Selected sample start
 	int selectionEnd;	// Selected sample end
+	int pointer;
 	short* clipboard;
 	int clipboardSize;
 	float zoom;
@@ -60,6 +61,11 @@ public:
 	afx_msg void OnViewZoomnormal();
 	afx_msg void OnViewZoomout();
 	afx_msg void OnViewZoomselection();
+	afx_msg void OnEditCut();
+	afx_msg void OnEditCopy();
+	afx_msg void OnEditPaste();
+	afx_msg void OnEditDeselectall();
+	afx_msg void OnEditDeselectall32792();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp

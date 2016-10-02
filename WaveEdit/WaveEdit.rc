@@ -203,11 +203,12 @@ BEGIN
     POPUP "&Edit",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
         MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO,MFT_STRING,MFS_ENABLED
-        MENUITEM "&Redo\t Ctrl+Y",               ID_EDIT_REDO32783,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Redo\t Ctrl+Y",              ID_EDIT_REDO32783,MFT_STRING,MFS_ENABLED
         MENUITEM MFT_SEPARATOR
         MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT,MFT_STRING,MFS_ENABLED
         MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY,MFT_STRING,MFS_ENABLED
         MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Deselect All\t Esc",         ID_EDIT_DESELECTALL,MFT_STRING,MFS_ENABLED
     END
     POPUP "&View",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
@@ -269,6 +270,7 @@ BEGIN
         MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
         MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
         MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "Deselect All\tEsc",           ID_EDIT_DESELECTALL32792
     END
 END
 
@@ -308,6 +310,7 @@ BEGIN
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_ESCAPE,      ID_EDIT_DESELECTALL,    VIRTKEY, NOINVERT
 END
 
 IDR_WaveEditTYPE ACCELERATORS
@@ -318,6 +321,7 @@ BEGIN
     "2",            ID_VIEW_ZOOMNORMAL,     VIRTKEY, CONTROL, NOINVERT
     "3",            ID_VIEW_ZOOMOUT,        VIRTKEY, CONTROL, NOINVERT
     "4",            ID_VIEW_ZOOMSELECTION,  VIRTKEY, CONTROL, NOINVERT
+    VK_ESCAPE,      ID_EDIT_DESELECTALL,    VIRTKEY, NOINVERT
 END
 
 
