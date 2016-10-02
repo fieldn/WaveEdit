@@ -38,7 +38,8 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_EDIT_COPY, &CWaveEditView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CWaveEditView::OnEditPaste)
 	ON_COMMAND(ID_EDIT_DESELECTALL, &CWaveEditView::OnEditDeselectall)
-	ON_COMMAND(ID_EDIT_DESELECTALL32792, &CWaveEditView::OnEditDeselectall32792)
+	ON_COMMAND(ID_EDIT_LEFT_ARROW, &CWaveEditView::OnEditLeftArrow)
+	ON_COMMAND(ID_SELECT_SELECTALL, &CWaveEditView::OnSelectSelectall)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -333,7 +334,6 @@ void CWaveEditView::OnEditPaste()
 	}
 }
 
-
 void CWaveEditView::OnEditDeselectall()
 {
 	selectionStart = selectionEnd = pointer = 0;
@@ -341,8 +341,29 @@ void CWaveEditView::OnEditDeselectall()
 }
 
 
-void CWaveEditView::OnEditDeselectall32792()
+void CWaveEditView::OnEditLeftArrow()
 {
-	selectionStart = selectionEnd = pointer = 0;
+	if (selectionEnd != selectionStart) {
+		pointer = selectionStart - 1;
+		selectionEnd == selectionStart;
+	} else if (pointer != 0) {
+		pointer--;
+	} else {
+		return;
+	}
+		RedrawWindow();
+	// TODO: Add your command handler code here
+}
+
+
+void CWaveEditView::OnSelectSelectall()
+{
+	OnViewZoomnormal();
+	CRect rect;
+	GetClientRect(rect);
+
+	selectionStart = 0;
+	selectionEnd = rect.Width();
 	RedrawWindow();
+	// TODO: Add your command handler code here
 }

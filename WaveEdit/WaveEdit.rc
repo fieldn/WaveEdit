@@ -208,7 +208,12 @@ BEGIN
         MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT,MFT_STRING,MFS_ENABLED
         MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY,MFT_STRING,MFS_ENABLED
         MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE,MFT_STRING,MFS_ENABLED
-        MENUITEM "&Deselect All\t Esc",         ID_EDIT_DESELECTALL,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        POPUP "Select...",                      65535,MFT_STRING,MFS_ENABLED
+        BEGIN
+            MENUITEM "Deselect All\tCtrl+Shift+A",  ID_SELECT_DESELECTALL,MFT_STRING,MFS_ENABLED
+            MENUITEM "Select All\tCtrl+A",          ID_SELECT_SELECTALL,MFT_STRING,MFS_ENABLED
+        END
     END
     POPUP "&View",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
@@ -270,7 +275,6 @@ BEGIN
         MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
         MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
         MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
-        MENUITEM "Deselect All\tEsc",           ID_EDIT_DESELECTALL32792
     END
 END
 
@@ -310,18 +314,20 @@ BEGIN
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
-    VK_ESCAPE,      ID_EDIT_DESELECTALL,    VIRTKEY, NOINVERT
+    "A",            ID_SELECT_DESELECTALL,  VIRTKEY, SHIFT, CONTROL, NOINVERT
+    "A",            ID_SELECT_SELECTALL,   VIRTKEY, CONTROL, NOINVERT
 END
 
 IDR_WaveEditTYPE ACCELERATORS
 BEGIN
+    VK_LEFT,        ID_EDIT_LEFT_ARROW,     VIRTKEY, NOINVERT
+    VK_RIGHT,       ID_EDIT_RIGHT_ARROW,    VIRTKEY, NOINVERT
     VK_SPACE,       ID_TRANSPORT_PLAY,      VIRTKEY, NOINVERT
     "P",            ID_TRANSPORT_STOP,      VIRTKEY, NOINVERT
     "1",            ID_VIEW_ZOOMIN,         VIRTKEY, CONTROL, NOINVERT
     "2",            ID_VIEW_ZOOMNORMAL,     VIRTKEY, CONTROL, NOINVERT
     "3",            ID_VIEW_ZOOMOUT,        VIRTKEY, CONTROL, NOINVERT
     "4",            ID_VIEW_ZOOMSELECTION,  VIRTKEY, CONTROL, NOINVERT
-    VK_ESCAPE,      ID_EDIT_DESELECTALL,    VIRTKEY, NOINVERT
 END
 
 

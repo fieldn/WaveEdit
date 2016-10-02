@@ -66,6 +66,8 @@ public:
 	afx_msg void OnEditPaste();
 	afx_msg void OnEditDeselectall();
 	afx_msg void OnEditDeselectall32792();
+	afx_msg void OnEditLeftArrow();
+	afx_msg void OnSelectSelectall();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp
