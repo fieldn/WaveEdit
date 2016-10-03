@@ -197,7 +197,9 @@
     <ClInclude Include="FilterFade.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="FilterEcho.h" />
+    <ClInclude Include="FilterPlaySelect.h" />
     <ClInclude Include="FilterSpeed.h" />
+    <ClInclude Include="FilterVolume.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Modifier.h" />
     <ClInclude Include="ModifierCut.h" />
@@ -215,7 +217,9 @@
     <ClCompile Include="FilterFade.cpp" />
     <ClCompile Include="Filter.cpp" />
     <ClCompile Include="FilterEcho.cpp" />
+    <ClCompile Include="FilterPlaySelect.cpp" />
     <ClCompile Include="FilterSpeed.cpp" />
+    <ClCompile Include="FilterVolume.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Modifier.cpp" />
     <ClCompile Include="ModifierCut.cpp" />

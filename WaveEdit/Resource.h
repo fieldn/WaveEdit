@@ -54,13 +54,18 @@
 #define ID_EFFECT_REVERSE               32808
 #define ID_SELECT_POINTERTOSTART        32820
 #define ID_SELECT_POINTERTOEND          32821
+#define ID_EDIT_VOLUMEUP                32822
+#define ID_EDIT_VOLUMEDOWN              32823
+#define ID_EFFECT_VOLUMEUP              32825
+#define ID_EFFECT_VOLUMEDOWN            32826
+#define ID_TRANSPORT_PLAYSELECTION      32827
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32825
+#define _APS_NEXT_COMMAND_VALUE         32828
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

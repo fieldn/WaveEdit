@@ -33,6 +33,9 @@ BEGIN_MESSAGE_MAP(CWaveEditDoc, CDocument)
 	ON_COMMAND(ID_EFFECT_REVERSE, &CWaveEditDoc::OnEffectReverse)
 	ON_COMMAND(ID_EDIT_UNDO, &CWaveEditDoc::OnEditUndo)
 	ON_COMMAND(ID_EDIT_REDO, &CWaveEditDoc::OnEditRedo)
+	ON_COMMAND(ID_EFFECT_VOLUMEUP, &CWaveEditDoc::OnEffectVolumeup)
+	ON_COMMAND(ID_EFFECT_VOLUMEDOWN, &CWaveEditDoc::OnEffectVolumedown)
+	ON_COMMAND(ID_TRANSPORT_PLAYSELECTION, &CWaveEditDoc::OnTransportPlayselection)
 END_MESSAGE_MAP()
 
 
@@ -233,4 +236,30 @@ void CWaveEditDoc::OnEditRedo()
 	listIndex++;
 	wave.updateHeader();
 	UpdateAllViews(NULL);
+}
+
+
+void CWaveEditDoc::OnEffectVolumeup()
+{
+	Modifier *m = new FilterVolume(true);
+	WaveFile * fadeFile = m->TransformSelect(&wave, sStart, sEnd);
+	wave = *fadeFile;
+	UpdateList(m);
+}
+
+
+void CWaveEditDoc::OnEffectVolumedown()
+{
+	Modifier *m = new FilterVolume(false);
+	WaveFile * fadeFile = m->TransformSelect(&wave, sStart, sEnd);
+	wave = *fadeFile;
+	UpdateList(m);
+}
+
+
+void CWaveEditDoc::OnTransportPlayselection()
+{
+	Modifier *m = new FilterPlaySelect();
+	WaveFile * fadeFile = m->TransformSelect(&wave, sStart, sEnd);
+	wave = *fadeFile;
 }

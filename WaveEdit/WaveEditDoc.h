@@ -8,6 +8,8 @@
 #include "FilterEcho.h"
 #include "FilterSpeed.h"
 #include "FilterFade.h"
+#include "FilterVolume.h"
+#include "FilterPlaySelect.h"
 #include "WaveEditView.h"
 #include "Modifier.h"
 #include <vector>
@@ -70,4 +72,7 @@ public:
 	afx_msg void OnEffectReverse();
 	afx_msg void OnEditUndo();
 	afx_msg void OnEditRedo();
+	afx_msg void OnEffectVolumeup();
+	afx_msg void OnEffectVolumedown();
+	afx_msg void OnTransportPlayselection();
 };
