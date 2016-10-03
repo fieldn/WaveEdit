@@ -148,18 +148,22 @@ void CWaveEditDoc::OnTransportStop()
 
 void CWaveEditDoc::OnEffectEcho()
 {
+	Filter *f = new FilterSpeed();
+	WaveFile * fastFile = f->TransformSelect(&wave, sStart, sEnd, 2);
 	WaveFile * echoFile = wave.echo(.2, .1);
 	wave = *echoFile;
 }
 
 void CWaveEditDoc::OnEffectSpeedup()
 {
-	WaveFile * fastFile = wave.multiply_freq(2, 0);
+	Filter *f = new FilterSpeed();
+	WaveFile * fastFile = f->TransformSelect(&wave, sStart, sEnd, 2);
 	wave = *fastFile;
 }
 
 void CWaveEditDoc::OnEffectSlowdown()
 {
-	WaveFile * fastFile = wave.multiply_freq(0.5, 0);
-	wave = *fastFile;
+	Filter *f = new FilterSpeed();
+	WaveFile * slowFile = f->TransformSelect(&wave, sStart, sEnd, 0.5);
+	wave = *slowFile;
 }

@@ -214,6 +214,11 @@ BEGIN
             MENUITEM "Deselect All\tCtrl+Shift+A",  ID_SELECT_DESELECTALL,MFT_STRING,MFS_ENABLED
             MENUITEM "Select All\tCtrl+A",          ID_SELECT_SELECTALL,MFT_STRING,MFS_ENABLED
         END
+        POPUP "Insert",                         65535,MFT_STRING,MFS_ENABLED
+        BEGIN
+            MENUITEM "Insert at Start",             ID_INSERT_INSERTATSTART,MFT_STRING,MFS_ENABLED
+            MENUITEM "Insert at End",               ID_INSERT_INSERTATEND,MFT_STRING,MFS_ENABLED
+        END
     END
     POPUP "&View",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
@@ -315,7 +320,7 @@ BEGIN
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
     "A",            ID_SELECT_DESELECTALL,  VIRTKEY, SHIFT, CONTROL, NOINVERT
-    "A",            ID_SELECT_SELECTALL,   VIRTKEY, CONTROL, NOINVERT
+    "A",            ID_SELECT_SELECTALL,    VIRTKEY, CONTROL, NOINVERT
 END
 
 IDR_WaveEditTYPE ACCELERATORS

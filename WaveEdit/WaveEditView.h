@@ -15,6 +15,7 @@ class CWaveEditView : public CScrollView
 	int clipboardSize;
 	float zoom;
 	int drawOffset;
+	int index;
 
 protected: // create from serialization only
 	CWaveEditView();
@@ -27,6 +28,7 @@ public:
 // Operations
 public:
 	int sampleStart(double startms, double endms);
+	void UpdatePDoc();
 
 // Overrides
 public:

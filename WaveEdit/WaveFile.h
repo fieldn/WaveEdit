@@ -33,6 +33,7 @@ typedef struct WaveHeader {
 
 class WaveFile {
 	friend class CWaveEditView;
+	friend class Filter;
 
 	unsigned long numChannels;
 	unsigned long sampleRate;

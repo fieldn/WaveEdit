@@ -56,6 +56,7 @@ CWaveEditView::CWaveEditView()
 	zoom = 1;
 	clipboard = NULL;
 	clipboardSize = 0;
+	index = -2;
 }
 
 CWaveEditView::~CWaveEditView()
@@ -135,7 +136,7 @@ void CWaveEditView::OnDraw(CDC* pDC)
 		int y = (int)((val + 32768) * (rect.Height() - 1) / (32767 + 32768));
 		pDC->LineTo(x, rect.Height() - y);
 	}
-
+	UpdatePDoc();
 }
 
 
@@ -297,6 +298,9 @@ void CWaveEditView::OnEditCut()
 	// Substitute old wave with new one
 	pDoc->wave = w2;
 	pDoc->wave.updateHeader();
+	selectionEnd = selectionStart;
+	pointer = selectionEnd;
+	UpdatePDoc();
 	// Update window
 	this->RedrawWindow();
 }
@@ -315,9 +319,9 @@ void CWaveEditView::OnEditCopy()
 	CRect rect;
 	GetClientRect(rect);
 	// Scale the start and end of the selection.
-	double startms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionStart / rect.Width();
+	double startms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionStart / rect.Width() * 44;
 	// Scale the start and end of the selection.
-	double endms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width();
+	double endms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width() * 44;
 
 	int start = sampleStart(startms, endms);
 
@@ -326,6 +330,7 @@ void CWaveEditView::OnEditCopy()
 		delete clipboard;
 	}
 	clipboard = wave.get_fragment(start, clipboardSize);
+	UpdatePDoc();
 }
 
 int CWaveEditView::sampleStart(double startms, double endms) {
@@ -349,8 +354,14 @@ void CWaveEditView::OnEditPaste()
 	// Get dimensions of the window.
 	CRect rect;
 	GetClientRect(rect);
+	if (pointer != 0) {
+		index = (1000.0 * wave.lastSample / wave.sampleRate) * (pointer - 1) / rect.Width() * 44;
+	}
+	else if (index < 0) {
+		index = wave.lastSample;
+	}
 
-	WaveFile * w = wave.append_fragment(clipboard, clipboardSize, wave.lastSample);
+	WaveFile * w = wave.append_fragment(clipboard, clipboardSize, index);
 	pDoc->wave = *w;
 	pDoc->wave.updateHeader();
 	RedrawWindow();
@@ -359,15 +370,16 @@ void CWaveEditView::OnEditPaste()
 void CWaveEditView::OnEditDeselectall()
 {
 	selectionStart = selectionEnd = pointer = 0;
+	UpdatePDoc();
 	RedrawWindow();
 }
-
 
 void CWaveEditView::OnEditLeftArrow()
 {
 	if (selectionEnd != selectionStart) {
 		pointer = selectionStart < selectionEnd ? selectionStart - 1 : selectionEnd - 1;
 		selectionEnd = selectionStart;
+		UpdatePDoc();
 	} else if (pointer != 0) {
 		pointer--;
 	} else {
@@ -381,6 +393,7 @@ void CWaveEditView::OnEditRightArrow()
 	if (selectionEnd != selectionStart) {
 		pointer = selectionEnd < selectionStart ? selectionStart + 1 : selectionEnd + 1;
 		selectionEnd = selectionStart;
+		UpdatePDoc();
 	} else if (pointer != 0) {
 		pointer++;
 	} else {
@@ -397,5 +410,25 @@ void CWaveEditView::OnSelectSelectall()
 
 	selectionStart = 0;
 	selectionEnd = rect.Width();
+	UpdatePDoc();
 	RedrawWindow();
+}
+
+void CWaveEditView::UpdatePDoc() {
+	CWaveEditDoc* pDoc = GetDocument();
+
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	WaveFile wave = pDoc->wave;
+	if (wave.hdr == NULL)
+		return;
+	CRect rect;
+	GetClientRect(rect);
+
+	double s = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionStart / rect.Width() * 44;
+	double e = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width() * 44;
+
+	pDoc->sStart = s < e ? s : e;
+	pDoc->sEnd = e > s ? e : s;
 }

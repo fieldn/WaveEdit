@@ -231,7 +231,6 @@ WaveFile * WaveFile::multiply_freq(double k, int durationms) {
 
 	// Write wav header
 	w2->updateHeader();
-
 	return w2;
 }
 
@@ -260,6 +259,7 @@ WaveFile * WaveFile::remove_fragment(double sampleStart, int sampleSize) {
 void WaveFile::append_wave(WaveFile * src) {
 	for (int i = 0; i < src->lastSample; i++)
 		add_sample(src->get_sample(i));
+	this->updateHeader();
 }
 
 WaveFile * WaveFile::append_fragment(short* clipboard, int clipboardSize, int pos) {
@@ -273,6 +273,7 @@ WaveFile * WaveFile::append_fragment(short* clipboard, int clipboardSize, int po
 	for (int i = pos; i < this->lastSample; i++) {
 		w->add_sample(this->get_sample(i));
 	}
+	w->updateHeader();
 	return w;
 }
 

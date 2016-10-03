@@ -2,14 +2,19 @@
 // WaveEditDoc.h : interface of the CWaveEditDoc class
 //
 
-
 #pragma once
 #include "WaveFile.h"
+#include "Filter.h"
+#include "FilterEcho.h"
+#include "FilterSpeed.h"
 
 class CWaveEditDoc : public CDocument
 {
 	friend class CWaveEditView;
+	friend class Filter;
 	WaveFile wave;
+	double sStart;
+	double sEnd;
 protected: // create from serialization only
 	CWaveEditDoc();
 	DECLARE_DYNCREATE(CWaveEditDoc)
@@ -49,7 +54,6 @@ protected:
 #endif // SHARED_HANDLERS
 public:
 	afx_msg void OnTransportPlay();
-	afx_msg void OnTransformPlay();
 	afx_msg void OnTransportStop();
 	afx_msg void OnEffectEcho();
 	afx_msg void OnEffectSpeedup();
