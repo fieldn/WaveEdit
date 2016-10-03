@@ -1,0 +1,21 @@
+EXTRA CREDIT FEATURES:
+  - Added Additional Functionality:
+    * Stop
+    * Pointer - line indicator separate from selection
+        - Move pointer left/right
+    * Zoom to Normal (Entire Wave)
+    * Zoom to Selection
+    * Ability to Change Application Look
+    * Detachable Toolbars
+    * Select All
+    * Deselect All
+    * Create Selection from Start to Pointer
+    * Create Selection from Pointer to End
+    * Insert at Beginning
+    * Insert at End
+    * Close Window (Ctrl + W)
+    * Close Program (Ctrl + Q)
+    * Print the wave
+  - Created Better Interface:
+    * Included Accelerators (keyboard commands) for every menu option
+    * Created nicer/more modern icons for everything, that also show within dropdowns
