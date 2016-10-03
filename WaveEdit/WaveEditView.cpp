@@ -40,6 +40,8 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_EDIT_LEFT_ARROW, &CWaveEditView::OnEditLeftArrow)
 	ON_COMMAND(ID_EDIT_RIGHT_ARROW, &CWaveEditView::OnEditRightArrow)
 	ON_COMMAND(ID_SELECT_SELECTALL, &CWaveEditView::OnSelectSelectall)
+	ON_COMMAND(ID_SELECT_POINTERTOSTART, &CWaveEditView::OnSelectPointertostart)
+	ON_COMMAND(ID_SELECT_POINTERTOEND, &CWaveEditView::OnSelectPointertoend)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
@@ -431,4 +433,24 @@ void CWaveEditView::UpdatePDoc() {
 
 	pDoc->sStart = s < e ? s : e;
 	pDoc->sEnd = e > s ? e : s;
+}
+
+void CWaveEditView::OnSelectPointertostart()
+{
+	OnViewZoomnormal();
+	selectionStart = 0;
+	selectionEnd = pointer;
+	RedrawWindow();
+}
+
+
+void CWaveEditView::OnSelectPointertoend()
+{
+	OnViewZoomnormal();
+	selectionStart = pointer;
+
+	CRect rect;
+	GetClientRect(rect);
+	selectionEnd = rect.Width();
+	RedrawWindow();
 }

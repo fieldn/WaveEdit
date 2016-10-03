@@ -35,15 +35,12 @@
 #define ID_VIEW_ZOOMSELECTION           32774
 #define ID_VIEW_ZOOMNORMAL              32775
 #define ID_Menu                         32776
-#define ID_VIEW_ZOOMNORMAL32777         32777
 #define ID_TRANSPORT_PLAY               32778
 #define ID_TRANSPORT_STOP               32779
-#define ID_EDIT_REDO					32783
 #define ID_EFFECT_ECHO                  32784
 #define ID_EFFECT_SPEEDUP               32785
 #define ID_EFFECT_SLOWDOWN              32786
 #define ID_SELECT_DESELECTALL           32787
-#define ID_EDIT_DESELECTALL32792        32792
 #define ID_EDIT_LEFT_ARROW              32794
 #define ID_EDIT_RIGHT_ARROW             32797
 #define ID_EDIT_SELECT                  32798
@@ -55,13 +52,15 @@
 #define ID_EFFECT_FADEIN                32806
 #define ID_EFFECT_FADEOUT               32807
 #define ID_EFFECT_REVERSE               32808
+#define ID_SELECT_POINTERTOSTART        32820
+#define ID_SELECT_POINTERTOEND          32821
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32820
+#define _APS_NEXT_COMMAND_VALUE         32825
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

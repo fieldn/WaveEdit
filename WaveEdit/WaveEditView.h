@@ -75,6 +75,8 @@ public:
 	afx_msg void OnEditLeftArrow();
 	afx_msg void OnEditRightArrow();
 	afx_msg void OnSelectSelectall();
+	afx_msg void OnSelectPointertostart();
+	afx_msg void OnSelectPointertoend();
 };
 
 #ifndef _DEBUG  // debug version in WaveEditView.cpp
