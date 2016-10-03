@@ -331,23 +331,3 @@ WaveFile * WaveFile::fade(bool in) {
 	end->updateHeader();
 	return end;
 }
-
-WaveFile * WaveFile::volume(bool inc) {
-	float per;
-	WaveFile * end = new WaveFile(numChannels, sampleRate, bitsPerSample);
-
-	if (inc) {
-		per = 0.6f;
-		for (int i = 0; i < this->lastSample; i++) {
-			end->add_sample(this->get_sample(i) + (this->get_sample(i) * per));
-		}
-	}
-	else {
-		per = 0.6f;
-		for (int i = 0; i < this->lastSample; i++) {
-			end->add_sample(this->get_sample(i) - (this->get_sample(i) * per));
-		}
-	}
-	end->updateHeader();
-	return end;
-}

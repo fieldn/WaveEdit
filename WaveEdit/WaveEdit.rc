@@ -260,10 +260,6 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Fade In",                     ID_EFFECT_FADEIN
         MENUITEM "Fade Out",                    ID_EFFECT_FADEOUT
-        MENUITEM SEPARATOR
-        MENUITEM "Volume Up",                   ID_EFFECT_VOLUMEUP
-        MENUITEM "Volume Down",                 ID_EFFECT_VOLUMEDOWN
-        MENUITEM SEPARATOR
         MENUITEM "Reverse",                     ID_EFFECT_REVERSE
     END
     POPUP "&Window"
@@ -281,7 +277,6 @@ BEGIN
     BEGIN
         MENUITEM "Play\t Space",                ID_TRANSPORT_PLAY
         MENUITEM "Stop\t S",                    ID_TRANSPORT_STOP
-        MENUITEM "Play Selection",              ID_TRANSPORT_PLAYSELECTION
     END
 END
 

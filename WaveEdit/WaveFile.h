@@ -100,6 +100,4 @@ public:
 	WaveFile * echo(float echoAmount, float delayms);
 
 	WaveFile * fade(bool in);
-	
-	WaveFile * volume(bool inc);
 };
