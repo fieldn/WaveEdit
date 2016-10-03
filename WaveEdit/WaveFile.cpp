@@ -64,6 +64,18 @@ WaveFile::WaveFile(int numChannels, int sampleRate, int bitsPerSample) {
 	hdr = (WaveHeader *)malloc(sizeof(WaveHeader) - 1 + maxSamples * bytesPerSample);
 }
 
+WaveFile::WaveFile(WaveFile &wave) {
+	this->numChannels =		wave.numChannels;
+	this->sampleRate =		wave.sampleRate;
+	this->bitsPerSample =	wave.bitsPerSample;
+	this->bytesPerSample =	wave.numChannels * bitsPerSample / 8;
+	this->lastSample =		wave.lastSample;
+	this->maxSamples =		wave.maxSamples;
+
+	this->hdr = (WaveHeader *)malloc(sizeof(WaveHeader) - 1 + maxSamples * bytesPerSample);
+	memcpy(this->hdr, wave.hdr, wave.lastSample * this->bytesPerSample);
+}
+
 // Destructor
 WaveFile::~WaveFile(void) {
 

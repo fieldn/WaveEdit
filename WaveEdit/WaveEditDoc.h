@@ -10,6 +10,7 @@
 #include "FilterFade.h"
 #include "WaveEditView.h"
 #include "Modifier.h"
+#include <vector>
 
 class CWaveEditDoc : public CDocument
 {
@@ -17,13 +18,16 @@ class CWaveEditDoc : public CDocument
 	friend class Modifier;
 	double sStart;
 	double sEnd;
+	std::vector<Modifier*> modList;
+	int listIndex;
+	void UpdateList(Modifier *m);
 protected: // create from serialization only
 	CWaveEditDoc();
 	DECLARE_DYNCREATE(CWaveEditDoc)
-
 // Attributes
 public:
 	WaveFile wave;
+	WaveFile copy;
 
 // Operations
 public:
@@ -64,4 +68,6 @@ public:
 	afx_msg void OnEffectFadein();
 	afx_msg void OnEffectFadeout();
 	afx_msg void OnEffectReverse();
+	afx_msg void OnEditUndo();
+	afx_msg void OnEditRedo();
 };

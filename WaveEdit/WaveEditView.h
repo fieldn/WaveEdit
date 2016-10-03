@@ -8,7 +8,6 @@
 #include "ModifierPaste.h"
 #include "WaveEditDoc.h"
 
-
 class CWaveEditView : public CScrollView
 {
 	bool mousePressed;

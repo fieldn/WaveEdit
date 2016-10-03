@@ -31,14 +31,16 @@ BEGIN_MESSAGE_MAP(CWaveEditDoc, CDocument)
 	ON_COMMAND(ID_EFFECT_FADEIN, &CWaveEditDoc::OnEffectFadein)
 	ON_COMMAND(ID_EFFECT_FADEOUT, &CWaveEditDoc::OnEffectFadeout)
 	ON_COMMAND(ID_EFFECT_REVERSE, &CWaveEditDoc::OnEffectReverse)
+	ON_COMMAND(ID_EDIT_UNDO, &CWaveEditDoc::OnEditUndo)
+	ON_COMMAND(ID_EDIT_REDO, &CWaveEditDoc::OnEditRedo)
 END_MESSAGE_MAP()
 
 
 // CWaveEditDoc construction/destruction
 CWaveEditDoc::CWaveEditDoc()
 {
-	// TODO: add one-time construction code here
-
+	std::vector<Modifier*> modList = std::vector<Modifier*>();
+	listIndex = 0;
 }
 
 CWaveEditDoc::~CWaveEditDoc()
@@ -63,6 +65,7 @@ void CWaveEditDoc::Serialize(CArchive& ar)
 		// TODO: add storing code here
 	} else {
 		wave.read(ar.GetFile());
+		copy = WaveFile(wave);
 		wave.play();
 	}
 }
@@ -151,44 +154,83 @@ void CWaveEditDoc::OnTransportStop()
 
 void CWaveEditDoc::OnEffectEcho()
 {
-	Filter *f = new FilterSpeed();
-	WaveFile * fastFile = f->TransformSelect(&wave, sStart, sEnd, 2);
-	WaveFile * echoFile = wave.echo(.2, .1);
+	Modifier *m = new FilterSpeed();
+	WaveFile * echoFile = m->TransformSelect(&wave, sStart, sEnd, 2);
 	wave = *echoFile;
+	UpdateList(m);
 }
 
 void CWaveEditDoc::OnEffectSpeedup()
 {
-	Filter *f = new FilterSpeed();
-	WaveFile * fastFile = f->TransformSelect(&wave, sStart, sEnd, 2);
+	Modifier *m = new FilterSpeed();
+	WaveFile * fastFile = m->TransformSelect(&wave, sStart, sEnd, 2);
 	wave = *fastFile;
+	UpdateList(m);
 }
 
 void CWaveEditDoc::OnEffectSlowdown()
 {
-	Filter *f = new FilterSpeed();
-	WaveFile * slowFile = f->TransformSelect(&wave, sStart, sEnd, 0.5);
+	Modifier *m = new FilterSpeed();
+	WaveFile * slowFile = m->TransformSelect(&wave, sStart, sEnd, 0.5);
 	wave = *slowFile;
+	UpdateList(m);
 }
-
 
 void CWaveEditDoc::OnEffectFadein()
 {
-	Filter *f = new FilterFade(true);
-	WaveFile * fadeFile = f->TransformSelect(&wave, sStart, sEnd);
+	Modifier *m = new FilterFade(true);
+	WaveFile * fadeFile = m->TransformSelect(&wave, sStart, sEnd);
 	wave = *fadeFile;
+	UpdateList(m);
 }
-
 
 void CWaveEditDoc::OnEffectFadeout()
 {
-	Filter *f = new FilterFade(false);
-	WaveFile * fadeFile = f->TransformSelect(&wave, sStart, sEnd);
+	Modifier *m = new FilterFade(false);
+	WaveFile * fadeFile = m->TransformSelect(&wave, sStart, sEnd);
 	wave = *fadeFile;
+	UpdateList(m);
 }
-
 
 void CWaveEditDoc::OnEffectReverse()
 {
-	// TODO: Add your command handler code here
+	Modifier *m = new FilterFade(false);
+}
+
+void CWaveEditDoc::UpdateList(Modifier *m)
+{
+	modList.resize(listIndex);
+	this->modList.push_back(m);
+	listIndex++;
+	UpdateAllViews(NULL);
+}
+
+void CWaveEditDoc::OnEditUndo()
+{
+	wave = WaveFile(copy);
+
+	if (listIndex == 0)
+		return;
+	
+	Modifier * m;
+	listIndex--;
+	for (int i = 0; i < listIndex; i++) {
+		m = modList.at(i);
+		wave = *(m->TransformSelect(&wave, m->start, m->end, m->pnum));
+	}
+	wave.updateHeader();
+	UpdateAllViews(NULL);
+}
+
+
+void CWaveEditDoc::OnEditRedo()
+{
+	if ((listIndex) == modList.size())
+		return;
+
+	Modifier * m = modList.at(listIndex);
+	wave = *(m->TransformSelect(&wave, m->start, m->end, m->pnum));
+	listIndex++;
+	wave.updateHeader();
+	UpdateAllViews(NULL);
 }

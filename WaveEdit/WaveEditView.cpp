@@ -296,6 +296,7 @@ void CWaveEditView::OnEditCut()
 	WaveFile * w2 = m->TransformSelect(&wave, start, clipboardSize, 0);
 	pDoc->wave = *w2;
 	pDoc->wave.updateHeader();
+	pDoc->UpdateList(m);
 	selectionEnd = selectionStart;
 	pointer = selectionStart;
 	UpdatePDoc();
@@ -358,10 +359,11 @@ void CWaveEditView::OnEditPaste()
 	else if (index < 0) {
 		index = wave.lastSample;
 	}
-	Modifier *m = new ModifierPaste(pDoc, clipboard);
+	Modifier *m = new ModifierPaste(pDoc, clipboard, clipboardSize);
 	WaveFile *w = m->TransformSelect(&wave, clipboardSize, index);
 	pDoc->wave = *w;
 	pDoc->wave.updateHeader();
+	pDoc->UpdateList(m);
 	RedrawWindow();
 }
 

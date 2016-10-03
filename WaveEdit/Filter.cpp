@@ -12,7 +12,9 @@ Filter::~Filter()
 }
 
 WaveFile * Filter::TransformSelect(WaveFile * wave, double sStart, double sEnd, double num) {
-
+	start = sStart;
+	end = sEnd;
+	pnum = num;
 	if (sStart != sEnd) {
 		int sizeS = sEnd - sStart;
 		int sizeE = wave->lastSample - sEnd;

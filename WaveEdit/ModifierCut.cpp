@@ -12,6 +12,9 @@ ModifierCut::~ModifierCut()
 }
 
 WaveFile * ModifierCut::TransformSelect(WaveFile * wave, double sStart, double sEnd, double num) {
+	start = sStart;
+	end = sEnd;
+	pnum = num;
 	wave = &doc->wave;
 	return wave->remove_fragment(sStart, sEnd);
 }

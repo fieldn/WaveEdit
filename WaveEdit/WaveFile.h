@@ -53,6 +53,8 @@ public:
 	// Create an empty wave file with these parameters.
 	WaveFile(int numChannels, int sampleRate, int bitsPerSample);
 
+	WaveFile(WaveFile &wave);
+
 	// Destructor
 	~WaveFile(void);
 
