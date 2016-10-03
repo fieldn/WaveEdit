@@ -3,6 +3,10 @@
 //
 
 #pragma once
+#include "Modifier.h"
+#include "ModifierCut.h"
+#include "ModifierPaste.h"
+#include "WaveEditDoc.h"
 
 
 class CWaveEditView : public CScrollView

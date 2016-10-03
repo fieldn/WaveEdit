@@ -10,7 +10,6 @@
 #include "WaveFile.h"
 #endif
 
-#include "WaveEditDoc.h"
 #include "WaveEditView.h"
 
 #ifdef _DEBUG
@@ -39,7 +38,7 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 	ON_COMMAND(ID_EDIT_PASTE, &CWaveEditView::OnEditPaste)
 	ON_COMMAND(ID_SELECT_DESELECTALL, &CWaveEditView::OnEditDeselectall)
 	ON_COMMAND(ID_EDIT_LEFT_ARROW, &CWaveEditView::OnEditLeftArrow)
-	ON_COMMAND(ID_EDIT_LEFT_ARROW, &CWaveEditView::OnEditRightArrow)
+	ON_COMMAND(ID_EDIT_RIGHT_ARROW, &CWaveEditView::OnEditRightArrow)
 	ON_COMMAND(ID_SELECT_SELECTALL, &CWaveEditView::OnSelectSelectall)
 END_MESSAGE_MAP()
 
@@ -290,16 +289,15 @@ void CWaveEditView::OnEditCut()
 	if (clipboard != NULL) {
 		delete clipboard;
 	}
-	clipboard = wave.get_fragment(start, clipboardSize);
 	// Copy the clipboard
-	WaveFile w2 = *wave.remove_fragment(start, clipboardSize);
-	// Remove old wave
-	// delete wave;
+	clipboard = wave.get_fragment(start, clipboardSize);
 	// Substitute old wave with new one
-	pDoc->wave = w2;
+	Modifier * m = new ModifierCut(pDoc);
+	WaveFile * w2 = m->TransformSelect(&wave, start, clipboardSize, 0);
+	pDoc->wave = *w2;
 	pDoc->wave.updateHeader();
 	selectionEnd = selectionStart;
-	pointer = selectionEnd;
+	pointer = selectionStart;
 	UpdatePDoc();
 	// Update window
 	this->RedrawWindow();
@@ -355,13 +353,13 @@ void CWaveEditView::OnEditPaste()
 	CRect rect;
 	GetClientRect(rect);
 	if (pointer != 0) {
-		index = (1000.0 * wave.lastSample / wave.sampleRate) * (pointer - 1) / rect.Width() * 44;
+		index = ((1000.0 * wave.lastSample / wave.sampleRate) * (pointer) / rect.Width() * 44);
 	}
 	else if (index < 0) {
 		index = wave.lastSample;
 	}
-
-	WaveFile * w = wave.append_fragment(clipboard, clipboardSize, index);
+	Modifier *m = new ModifierPaste(pDoc, clipboard);
+	WaveFile *w = m->TransformSelect(&wave, clipboardSize, index);
 	pDoc->wave = *w;
 	pDoc->wave.updateHeader();
 	RedrawWindow();

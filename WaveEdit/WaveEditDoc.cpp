@@ -28,6 +28,9 @@ BEGIN_MESSAGE_MAP(CWaveEditDoc, CDocument)
 	ON_COMMAND(ID_EFFECT_ECHO, &CWaveEditDoc::OnEffectEcho)
 	ON_COMMAND(ID_EFFECT_SPEEDUP, &CWaveEditDoc::OnEffectSpeedup)
 	ON_COMMAND(ID_EFFECT_SLOWDOWN, &CWaveEditDoc::OnEffectSlowdown)
+	ON_COMMAND(ID_EFFECT_FADEIN, &CWaveEditDoc::OnEffectFadein)
+	ON_COMMAND(ID_EFFECT_FADEOUT, &CWaveEditDoc::OnEffectFadeout)
+	ON_COMMAND(ID_EFFECT_REVERSE, &CWaveEditDoc::OnEffectReverse)
 END_MESSAGE_MAP()
 
 
@@ -166,4 +169,26 @@ void CWaveEditDoc::OnEffectSlowdown()
 	Filter *f = new FilterSpeed();
 	WaveFile * slowFile = f->TransformSelect(&wave, sStart, sEnd, 0.5);
 	wave = *slowFile;
+}
+
+
+void CWaveEditDoc::OnEffectFadein()
+{
+	Filter *f = new FilterFade(true);
+	WaveFile * fadeFile = f->TransformSelect(&wave, sStart, sEnd);
+	wave = *fadeFile;
+}
+
+
+void CWaveEditDoc::OnEffectFadeout()
+{
+	Filter *f = new FilterFade(false);
+	WaveFile * fadeFile = f->TransformSelect(&wave, sStart, sEnd);
+	wave = *fadeFile;
+}
+
+
+void CWaveEditDoc::OnEffectReverse()
+{
+	// TODO: Add your command handler code here
 }

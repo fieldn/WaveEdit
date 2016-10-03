@@ -270,7 +270,7 @@ WaveFile * WaveFile::append_fragment(short* clipboard, int clipboardSize, int po
 	for (int i = 0; i < clipboardSize; i++) {
 		w->add_sample(clipboard[i]);
 	}
-	for (int i = pos; i < this->lastSample; i++) {
+	for (int i = pos; i <= this->lastSample; i++) {
 		w->add_sample(this->get_sample(i));
 	}
 	w->updateHeader();
@@ -294,4 +294,28 @@ WaveFile * WaveFile::echo(float echoAmount, float delayms) {
 
 	w2->updateHeader();
 	return w2;
+}
+
+WaveFile * WaveFile::fade(bool in) {
+	float per, perSamp;
+	WaveFile * end = new WaveFile(numChannels, sampleRate, bitsPerSample);
+
+	if (in) {
+		per = 0.1f;
+		perSamp = (float)1 / this->lastSample;
+		for (int i = 0; i < this->lastSample; i++) {
+			end->add_sample(this->get_sample(i) * per);
+			per += perSamp;
+		}
+	}
+	else {
+		per = 1.0f;
+		perSamp = ((float)1 / (float)this->lastSample);
+		for (int i = 0; i < this->lastSample; i++) {
+			end->add_sample(this->get_sample(i) * per);
+			per -= perSamp;
+		}
+	}
+	end->updateHeader();
+	return end;
 }

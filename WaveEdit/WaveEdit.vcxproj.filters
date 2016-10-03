@@ -60,6 +60,12 @@
     <ClInclude Include="ModifierCut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModifierPaste.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterFade.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveEdit.cpp">
@@ -96,6 +102,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ModifierCut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModifierPaste.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterFade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

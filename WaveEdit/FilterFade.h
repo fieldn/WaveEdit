@@ -1,11 +1,12 @@
 #pragma once
 #include "Filter.h"
 
-class FilterSpeed : public Filter
+class FilterFade : public Filter
 {
-
 public:
-	FilterSpeed();
-	~FilterSpeed();
+	bool in;
+	FilterFade(bool in);
+	~FilterFade();
 	WaveFile * Transform(WaveFile * wave, double num);
 };
+

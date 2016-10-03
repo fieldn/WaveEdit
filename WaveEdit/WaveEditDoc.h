@@ -7,12 +7,14 @@
 #include "Filter.h"
 #include "FilterEcho.h"
 #include "FilterSpeed.h"
+#include "FilterFade.h"
+#include "WaveEditView.h"
+#include "Modifier.h"
 
 class CWaveEditDoc : public CDocument
 {
 	friend class CWaveEditView;
-	friend class Filter;
-	WaveFile wave;
+	friend class Modifier;
 	double sStart;
 	double sEnd;
 protected: // create from serialization only
@@ -21,6 +23,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
+	WaveFile wave;
 
 // Operations
 public:
@@ -58,4 +61,7 @@ public:
 	afx_msg void OnEffectEcho();
 	afx_msg void OnEffectSpeedup();
 	afx_msg void OnEffectSlowdown();
+	afx_msg void OnEffectFadein();
+	afx_msg void OnEffectFadeout();
+	afx_msg void OnEffectReverse();
 };

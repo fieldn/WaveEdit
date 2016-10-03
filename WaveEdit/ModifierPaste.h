@@ -1,14 +1,15 @@
 #pragma once
 #include "Modifier.h"
-#include "WaveEditView.h"
 
 class CWaveEditDoc;
 
-class ModifierCut : public Modifier
+class ModifierPaste : public Modifier
 {
 public:
 	CWaveEditDoc * doc;
-	ModifierCut(CWaveEditDoc * doc);
-	~ModifierCut();
+	short* clip;
+	ModifierPaste(CWaveEditDoc * doc, short* clip);
+	~ModifierPaste();
 	WaveFile * TransformSelect(WaveFile * wave, double sStart, double sEnd, double num = 0);
 };
+

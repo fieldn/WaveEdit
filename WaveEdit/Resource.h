@@ -52,13 +52,16 @@
 #define ID_EDIT_INSERT                  32803
 #define ID_INSERT_INSERTATSTART         32804
 #define ID_INSERT_INSERTATEND           32805
+#define ID_EFFECT_FADEIN                32806
+#define ID_EFFECT_FADEOUT               32807
+#define ID_EFFECT_REVERSE               32808
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32806
+#define _APS_NEXT_COMMAND_VALUE         32817
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
