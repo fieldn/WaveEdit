@@ -50,6 +50,7 @@ static int isLittleEndian() {
 // Create an empty wave file.
 WaveFile::WaveFile(void) {
 	hdr = NULL;
+	WaveFile(1, 44100, 16);
 }
 
 // Create an empty wave file with these parameters.
@@ -274,13 +275,13 @@ void WaveFile::append_wave(WaveFile * src) {
 	this->updateHeader();
 }
 
-WaveFile * WaveFile::append_fragment(short* clipboard, int clipboardSize, int pos) {
+WaveFile * WaveFile::append_fragment(short* clip, int clipSize, int pos) {
 	WaveFile *w = new WaveFile(this->numChannels, this->sampleRate, this->bitsPerSample);
 	for (int i = 0; i < pos; i++) {
 		w->add_sample(this->get_sample(i));
 	}
-	for (int i = 0; i < clipboardSize; i++) {
-		w->add_sample(clipboard[i]);
+	for (int i = 0; i < clipSize; i++) {
+		w->add_sample(clip[i]);
 	}
 	for (int i = pos; i <= this->lastSample; i++) {
 		w->add_sample(this->get_sample(i));

@@ -7,7 +7,7 @@ ModifierPaste::ModifierPaste(CWaveEditDoc * doc, short* clip, int size)
 	this->doc = doc;
 	this->size = size;
 	this->clip = (short *)malloc(sizeof(short) * size);
-	memcpy(this->clip, clip, size);
+	memcpy(this->clip, clip, size * sizeof(short));
 }
 
 

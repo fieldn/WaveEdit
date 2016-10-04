@@ -7,6 +7,8 @@
 #include "ModifierCut.h"
 #include "ModifierPaste.h"
 #include "WaveEditDoc.h"
+static short* clipboard = NULL;
+static int clipboardSize = 0;
 
 class CWaveEditView : public CScrollView
 {
@@ -14,8 +16,6 @@ class CWaveEditView : public CScrollView
 	int selectionStart; // Selected sample start
 	int selectionEnd;	// Selected sample end
 	int pointer;
-	short* clipboard;
-	int clipboardSize;
 	float zoom;
 	int drawOffset;
 	int index;

@@ -16,7 +16,6 @@
 #define new DEBUG_NEW
 #endif
 
-
 // CWaveEditView
 IMPLEMENT_DYNCREATE(CWaveEditView, CScrollView)
 BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
@@ -45,18 +44,14 @@ BEGIN_MESSAGE_MAP(CWaveEditView, CScrollView)
 END_MESSAGE_MAP()
 
 // CWaveEditView construction/destruction
-
 CWaveEditView::CWaveEditView()
 {
-	// TODO: add construction code here
 	mousePressed = false;
 	selectionStart = 0;
 	selectionEnd = 0;
 	pointer = 0;
 	drawOffset = 0;
 	zoom = 1;
-	clipboard = NULL;
-	clipboardSize = 0;
 	index = -2;
 }
 
@@ -121,7 +116,8 @@ void CWaveEditView::OnDraw(CDC* pDC)
 		CBrush* pOldBrush = pDC->SelectObject(&newBrush);
 		pDC->Rectangle(pointer, 0, pointer + 1, rect.Height());
 		pDC->SelectObject(pOldBrush);
-	} else {
+	}
+	else {
 
 	}
 
@@ -142,8 +138,6 @@ void CWaveEditView::OnDraw(CDC* pDC)
 
 
 // CWaveEditView printing
-
-
 void CWaveEditView::OnFilePrintPreview()
 {
 #ifndef SHARED_HANDLERS
@@ -180,9 +174,7 @@ void CWaveEditView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
-
 // CWaveEditView diagnostics
-
 #ifdef _DEBUG
 void CWaveEditView::AssertValid() const
 {
@@ -202,7 +194,6 @@ CWaveEditDoc* CWaveEditView::GetDocument() const // non-debug version is inline
 #endif //_DEBUG
 
 // CWaveEditView message handlers
-
 void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CScrollView::OnMouseMove(nFlags, point);
@@ -211,6 +202,7 @@ void CWaveEditView::OnMouseMove(UINT nFlags, CPoint point)
 		RedrawWindow();
 	}
 }
+
 void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	mousePressed = true;
@@ -218,6 +210,7 @@ void CWaveEditView::OnLButtonDown(UINT nFlags, CPoint point)
 	selectionEnd = point.x;
 	CScrollView::OnLButtonDown(nFlags, point);
 }
+
 void CWaveEditView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	mousePressed = false;
@@ -320,9 +313,9 @@ void CWaveEditView::OnEditCopy()
 	CRect rect;
 	GetClientRect(rect);
 	// Scale the start and end of the selection.
-	double startms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionStart / rect.Width() * 44;
+	double startms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionStart / rect.Width();
 	// Scale the start and end of the selection.
-	double endms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width() * 44;
+	double endms = (1000.0 * wave.lastSample / wave.sampleRate) * this->selectionEnd / rect.Width();
 
 	int start = sampleStart(startms, endms);
 
@@ -335,8 +328,8 @@ void CWaveEditView::OnEditCopy()
 }
 
 int CWaveEditView::sampleStart(double startms, double endms) {
-	double sampleStart = startms * 44;
-	double sampleEnd = endms * 44;
+	double sampleStart = (startms < endms ? startms : endms)* 44;
+	double sampleEnd = (startms < endms ? endms : startms)* 44;
 	int sampleSize = sampleEnd - sampleStart;
 	clipboardSize = sampleSize;
 	return sampleStart;
@@ -442,7 +435,6 @@ void CWaveEditView::OnSelectPointertostart()
 	selectionEnd = pointer;
 	RedrawWindow();
 }
-
 
 void CWaveEditView::OnSelectPointertoend()
 {
