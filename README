@@ -13,9 +13,13 @@ EXTRA CREDIT FEATURES:
     * Create Selection from Pointer to End
     * Insert at Beginning
     * Insert at End
+    * Play a selection
     * Close Window (Ctrl + W)
     * Close Program (Ctrl + Q)
     * Print the wave
   - Created Better Interface:
     * Included Accelerators (keyboard commands) for every menu option
     * Created nicer/more modern icons for everything, that also show within dropdowns
+  - Added Filters
+    * Increase/Decrease volume
+    * Fade In/Fade Out
