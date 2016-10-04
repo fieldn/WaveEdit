@@ -50,7 +50,6 @@ static int isLittleEndian() {
 // Create an empty wave file.
 WaveFile::WaveFile(void) {
 	hdr = NULL;
-	WaveFile(1, 44100, 16);
 }
 
 // Create an empty wave file with these parameters.

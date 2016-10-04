@@ -41,7 +41,8 @@ END_MESSAGE_MAP()
 
 // CWaveEditDoc construction/destruction
 CWaveEditDoc::CWaveEditDoc()
-{
+{ 
+	wave = WaveFile(1, 44000, 16);
 	std::vector<Modifier*> modList = std::vector<Modifier*>();
 	listIndex = 0;
 }
